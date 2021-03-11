@@ -189,3 +189,23 @@
     <script src="{{ url_for('static', filename='script/script.js') }}"></script>
   </body>
 </html>
+
+
+
+<!-- Backup 11 March 2021 -->
+# ROUTE FUNCTION
+# route to index.html
+@app.route('/', methods=["GET", "POST"])
+def index():
+    # Dummy Melbourne Data
+    table = real_estate.head(100)
+
+    # Get Tweet
+    if request.method == "GET":
+        return render_template('index.html')
+    elif request.method == "POST":
+        # Get Tweet
+        text_query = request.form['text']
+        tweet_data = get_tweets(text_query)
+
+    return render_template('index.html', data=table, tweet_data=tweet_data, text_query=text_query)
