@@ -157,103 +157,103 @@
               </button>
               </div>
           </div>
-
-            <!-- Linechart -->
-            <div class="card" style="margin-top:2em;">
-              <div class="card-header">
-                <h2>Linechart</h2>
-              </div>
-              <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+          
+          <!-- Table of Social Stream -->
+          <div class="card" style="margin-top:2em;">
+            <div class="card-header">
+              <h2>Social Media Conversation</h2>
             </div>
-            <!-- Linechart -->
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+              <table class="table table-bordered table-striped mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Tweet</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in range(0, tweet_data|length) %}
+                  <tr>
+                    <th scope="row">{{ i+1 }}</th>
+                    <td>{{ tweet_data.tweet_id[i] }}</td>
+                    <td>{{ tweet_data.created_at[i] }}</td>
+                    <td>{{ tweet_data.tweet_text[i] }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- End of Table of Social Stream -->
 
-            <!-- Table -->
-            <div class="card" style="margin-top:2em;">
-              <div class="card-header">
-                <h2>Table with Vertical Scrolling</h2>
-              </div>
-              <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <!-- Linechart -->
+          <div class="card" style="margin-top:2em;">
+            <div class="card-header">
+              <h2>Linechart</h2>
+            </div>
+            <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+          </div>
+          <!-- Linechart -->
+
+          <!-- Table -->
+          <div class="card" style="margin-top:2em;">
+            <div class="card-header">
+              <h2>Melbourne Data</h2>
+            </div>
+            <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
                 <table class="table table-bordered table-striped mb-0">
                   <thead>
                     <tr>
                       <th scope="col">No</th>
-                      <th scope="col">ID</th>
+                      <th scope="col">Suburb</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Rooms</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Method</th>
+                      <th scope="col">SellerG</th>
                       <th scope="col">Date</th>
-                      <th scope="col">Tweet</th>
+                      <th scope="col">Distance</th>
+                      <th scope="col">Postcode</th>
+                      <th scope="col">Bedroom2</th>
+                      <th scope="col">Bathroom</th>
+                      <th scope="col">Car</th>
+                      <th scope="col">Landsize</th>
+                      <th scope="col">Building Area</th>
+                      <th scope="col">Year Built</th>
                     </tr>
                   </thead>
+                  <!-- for loop to display data frame -->
+              
                   <tbody>
-                    {% for i in range(0, tweet_data|length) %}
+                    {% for i in range(0, data|length) %}
                     <tr>
                       <th scope="row">{{ i+1 }}</th>
-                      <td>{{ tweet_data.tweet_id[i] }}</td>
-                      <td>{{ tweet_data.created_at[i] }}</td>
-                      <td>{{ tweet_data.tweet_text[i] }}</td>
+                      <td>{{ data['Suburb'][i] }}</td>
+                      <td>{{ data['Address'][i] }}</td>
+                      <td>{{ data['Rooms'][i] }}</td>
+                      <td>{{ data['Type'][i] }}</td>
+                      <td>{{ data['Price'][i] }}</td>
+                      <td>{{ data['Method'][i] }}</td>
+                      <td>{{ data['SellerG'][i] }}</td>
+                      <td>{{ data['Date'][i] }}</td>
+                      <td>{{ data['Distance'][i] }}</td>
+                      <td>{{ data['Postcode'][i] }}</td>
+                      <td>{{ data['Bedroom2'][i] }}</td>
+                      <td>{{ data['Bathroom'][i] }}</td>
+                      <td>{{ data['Car'][i] }}</td>
+                      <td>{{ data['Landsize'][i] }}</td>
+                      <td>{{ data['BuildingArea'][i] }}</td>
+                      <td>{{ data['YearBuilt'][i] }}</td>
                     </tr>
                     {% endfor %}
                   </tbody>
                 </table>
-              </div>
             </div>
-            <!-- End of Table -->
-
-            <!-- Table -->
-            <div class="card" style="margin-top:2em;">
-              <div class="card-header">
-                <h2>Melbourne Data</h2>
-              </div>
-              <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
-                  <table class="table table-bordered table-striped mb-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Suburb</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Rooms</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Method</th>
-                        <th scope="col">SellerG</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Distance</th>
-                        <th scope="col">Postcode</th>
-                        <th scope="col">Bedroom2</th>
-                        <th scope="col">Bathroom</th>
-                        <th scope="col">Car</th>
-                        <th scope="col">Landsize</th>
-                        <th scope="col">Building Area</th>
-                        <th scope="col">Year Built</th>
-                      </tr>
-                    </thead>
-                    <!-- for loop to display data frame -->
-                
-                    <tbody>
-                      {% for i in range(0, data|length) %}
-                      <tr>
-                        <th scope="row">{{ i+1 }}</th>
-                        <td>{{ data['Suburb'][i] }}</td>
-                        <td>{{ data['Address'][i] }}</td>
-                        <td>{{ data['Rooms'][i] }}</td>
-                        <td>{{ data['Type'][i] }}</td>
-                        <td>{{ data['Price'][i] }}</td>
-                        <td>{{ data['Method'][i] }}</td>
-                        <td>{{ data['SellerG'][i] }}</td>
-                        <td>{{ data['Date'][i] }}</td>
-                        <td>{{ data['Distance'][i] }}</td>
-                        <td>{{ data['Postcode'][i] }}</td>
-                        <td>{{ data['Bedroom2'][i] }}</td>
-                        <td>{{ data['Bathroom'][i] }}</td>
-                        <td>{{ data['Car'][i] }}</td>
-                        <td>{{ data['Landsize'][i] }}</td>
-                        <td>{{ data['BuildingArea'][i] }}</td>
-                        <td>{{ data['YearBuilt'][i] }}</td>
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-              </div>
-            </div>
-            <!-- End of Table -->
+          </div>
+          <!-- End of Table -->
         </main>
         <!-- End of Main Dashboard -->
       </div>

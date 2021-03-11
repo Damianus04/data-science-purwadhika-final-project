@@ -11,8 +11,8 @@ import plotly.graph_objs as go
 # my functions
 from static.src.plot import get_tweets
 
-text = get_tweets('vaksin')
-print(text)
+# text = get_tweets('vaksin')
+# print(text)
 
 # data
 # df = pd.read_csv("./data/final_text_data.csv")
