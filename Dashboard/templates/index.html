@@ -27,8 +27,14 @@
   <body>
     <!-- NAVBAR -->
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-1">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Online Sentiment Detector</a>
-      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Online Sentiment Detector</a>        
+      <!-- keyword search -->
+      <form action="{{ url_for('keyword_search')}}" method="POST" class="form-inline my-2 my-lg-0">
+        <input id="text" name="text" class="form-control mr-sm-2" type="search" 
+        placeholder="Search Keyword" aria-label="Search" id="inpkeyword" type="submit">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <!-- end of keyword search -->
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="#">Sign out</a>
@@ -37,27 +43,7 @@
     </nav>
     <!-- END OF NAVBAR -->
     
-    <!-- trial of get tweet -->
-    <div class="container text-center" style="margin-bottom: 80px;">
-      <form action="{{ url_for('keyword_search')}}" method="POST">
-        <div class="form-group">
-          <textarea
-            placeholder="Enter Keyword Here"
-            name="text"
-            class="form-control"
-            id="text"
-            rows="3"
-          ></textarea>
-          <input
-            id="inpkeyword"
-            type="submit"
-            class="btn btn-primary input-keyword"
-            value="Check"
-          />
-        </div>
-      </form>
-    </div>
-    <!-- trial of get tweet -->
+
 
 
 
@@ -163,13 +149,14 @@
             <div class="card-header">
               <h2>Social Media Conversation</h2>
             </div>
-            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar-table">
               <table class="table table-bordered table-striped mb-0">
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th scope="col">ID</th>
                     <th scope="col">Date</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Profile URL</th>
                     <th scope="col">Tweet</th>
                   </tr>
                 </thead>
@@ -177,8 +164,9 @@
                   {% for i in range(0, tweet_data|length) %}
                   <tr>
                     <th scope="row">{{ i+1 }}</th>
-                    <td>{{ tweet_data.tweet_id[i] }}</td>
                     <td>{{ tweet_data.created_at[i] }}</td>
+                    <td>{{ tweet_data.user_name[i] }}</td>
+                    <td>{{ tweet_data.profile_url[i] }}</td>
                     <td>{{ tweet_data.tweet_text[i] }}</td>
                   </tr>
                   {% endfor %}
@@ -187,6 +175,72 @@
             </div>
           </div>
           <!-- End of Table of Social Stream -->
+
+
+          <!-- Card of Social Stream -->
+          <div class="container-fluid">
+
+            <div class="row">
+
+              <div class="card col-sm-3 col-xs-3" style="margin-top:2em; margin-right:1em; width: 10rem;">
+                <div class="card-header">
+                  <h2>Conversations</h2>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                  <table class="table table-bordered table-striped mb-0">
+                    <tbody>
+                      {% for i in range(0, tweet_data|length) %}
+                      <tr>
+                        <th scope="row">{{ i+1 }}</th>
+                        <td>
+                          <div class="card bg-light mb-3" style="max-width: 25rem;">
+                            <div class="card-header">{{ tweet_data.created_at[i] }}</div>
+                            <div class="card-body">
+                              <h5 class="card-title">{{ tweet_data.user_name[i] }}</h5>
+                              <p class="card-text">{{ tweet_data.tweet_text[i] }}</p>
+                              <br/>
+                              <p class="font-italic">{{ tweet_data.profile_url[i] }}</p>
+                              <p class="font-bold">sentiment</p>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="card col-sm-8 col-xs-8" style="margin-top:2em; width: 10rem;">
+                <div class="card-header">
+                  <h2>Social Media Conversation</h2>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                  <table class="table table-bordered table-striped mb-0">
+                    <tbody>
+                      {% for i in range(0, tweet_data|length) %}
+                      <tr>
+                        <th scope="row">{{ i+1 }}</th>
+                        <td>
+                          <div class="card bg-light mb-3" style="max-width: 25rem;">
+                            <div class="card-header">{{ tweet_data.created_at[i] }}</div>
+                            <div class="card-body">
+                              <h5 class="card-title">{{ tweet_data.user_name[i] }}</h5>
+                              <p class="card-text">{{ tweet_data.tweet_text[i] }}</p>
+                              <br/>
+                              <p class="font-italic">{{ tweet_data.profile_url[i] }}</p>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End of Card of Social Stream -->
 
           <!-- Linechart -->
           <div class="card" style="margin-top:2em;">
