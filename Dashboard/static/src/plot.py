@@ -17,28 +17,29 @@ authentication.set_access_token(access_token, access_token_secret)
 api = tweepy.API(authentication, wait_on_rate_limit=True)
 
 
-
 def get_profile_banner_url(i):
     if 'profile_banner_url' in i.user._json:
         return i.user.profile_banner_url
     else:
-        return 'None' 
-    
+        return 'None'
+
+
 def get_news_url_2(i):
     if i.entities['urls'] == []:
         return 'None'
     else:
         return i.entities['urls'][0]['url']
 
+
 def get_tweets(keyword='indonesia', location="-0.789275,113.921326,5000km", language='id'):
     # list to store tweets
     tweets_list = []
     # no of tweets
-    count = 50
+    count = 100
     # location
-    location=location
+    location = location
     # lang
-    language=language
+    language = language
     try:
         # Pulling individual tweets from query
         for tweet in api.search(q=keyword, geocode=location, count=count, lang=language):

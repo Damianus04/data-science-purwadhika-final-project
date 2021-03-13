@@ -45,8 +45,13 @@ def keyword_search():
         # Get Tweet
         text_query = request.form['text']
         tweet_data = get_tweets(text_query)
+        total_mentions = len(tweet_data)
+        average_mentions = round(total_mentions/7)
 
-    return render_template('index.html', data=table, tweet_data=tweet_data, text_query=text_query)
+    return render_template('index.html',
+                           data=table, tweet_data=tweet_data, text_query=text_query,
+                           total_mentions=total_mentions, average_mentions=average_mentions
+                           )
 
 
 if __name__ == '__main__':
