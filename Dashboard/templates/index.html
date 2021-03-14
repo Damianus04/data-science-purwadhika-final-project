@@ -84,6 +84,7 @@
 
     <!-- Main Dashboard -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <!-- Header -->
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
           <h1 class="h1">Social Dashboard</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
@@ -98,163 +99,164 @@
           </div>
       </div>
 
-      <!-- Social Dashboard -->
-      <div class="container-fluid">
-
-        <div class="row">
-          <!-- column 1 - Conversations-->
-          <div class="col-lg-5" style="margin-top:2em;">
-            <div class="card">
-              <div class="card-header">
-                <h3>Conversations</h3>
-              </div>
-              <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <table class="table table-bordered table-striped mb-0">
-                  <tbody>
-                    {% for i in range(0, tweet_data|length) %}
-                    <tr>
-                      <th scope="row">{{ i+1 }}</th>
-                      <td>
-                        <div class="card bg-light mb-3">
-                          <div class="card-header">{{ tweet_data.created_at[i] }}</div>
-                          <div class="card-body">
-                            <h5 class="card-title">{{ tweet_data.user_name[i] }}</h5>
-                            <p class="card-text">{{ tweet_data.tweet_text[i] }}</p>
-                            <br/>
-                            <p class="font-italic">{{ tweet_data.profile_url[i] }}</p>
-                            <p class="font-bold">sentiment</p>
+      <!-- Stats -->
+      <div class="stats">
+        <!-- Social Stats -->
+        <div class="container-fluid">
+  
+          <div class="row">
+            <!-- column 1 - Conversations-->
+            <div class="col-lg-5" style="margin-top:2em;">
+              <div class="card card-shadow">
+                <div class="card-header">
+                  <h3>Conversations</h3>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                  <table class="table table-bordered table-striped mb-0">
+                    <tbody>
+                      {% for i in range(0, tweet_data|length) %}
+                      <tr>
+                        <th scope="row">{{ i+1 }}</th>
+                        <td>
+                          <div class="card bg-light mb-3">
+                            <div class="card-header">{{ tweet_data.created_at[i] }}</div>
+                            <div class="card-body">
+                              <h5 class="card-title">{{ tweet_data.user_name[i] }}</h5>
+                              <p class="card-text">{{ tweet_data.tweet_text[i] }}</p>
+                              <br/>
+                              <p class="font-italic">{{ tweet_data.profile_url[i] }}</p>
+                              <p class="font-bold">sentiment</p>
+                            </div>
                           </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+  
+            <!-- column 2 - Analytics -->
+            <div class="col-lg-7">
+              <div class="row">
+  
+                <!-- stats -->
+                <div class="col-lg-12">
+                  <div class="row">
+                    <!-- column 2.1 - current keyword-->
+                    <div class="col" style="margin-top:2em;">
+                      <div class="card bg-light mb-3 card-shadow" style="max-width: 18rem;">
+                        <div class="card-header text-center">Current Keyword</div>
+                        <div class="card-body">
+                          <h5 class="card-title text-center" style="font-size: 15px;">{{ text_query }}</h5>
+                          <p class="card-text text-center font-italic">keyword that is being searched now</p>
+                          <p></p>
                         </div>
-                      </td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- column 2 - Analytics -->
-          <div class="col-lg-7">
-            <div class="row">
-
-              <!-- stats -->
-              <div class="col-lg-12">
-                <div class="row">
-                  <!-- column 2.1 - current keyword-->
-                  <div class="col" style="margin-top:2em;">
-                    <div class="card bg-light mb-3" style="max-width: 18rem;">
-                      <div class="card-header text-center">Current Keyword</div>
-                      <div class="card-body">
-                        <h5 class="card-title text-center" style="font-size: 15px;">{{ text_query }}</h5>
-                        <p class="card-text text-center font-italic">keyword that is being searched now</p>
-                        <p></p>
                       </div>
                     </div>
-                  </div>
-  
-                  <!-- column 2.2 - total conversations-->
-                  <div class="col" style="margin-top:2em;">
-                    <div class="card bg-light mb-3" style="max-width: 18rem;">
-                      <div class="card-header text-center">Total Conversations</div>
-                      <div class="card-body">
-                        <h4 class="card-title text-center" style="font-size: 50px;">{{ tweet_data|length }}</h4>
-                        <p class="card-text text-center font-italic">total mentions on social media in the last 7 days</p>
+    
+                    <!-- column 2.2 - total conversations-->
+                    <div class="col" style="margin-top:2em;">
+                      <div class="card bg-light mb-3 card-shadow" style="max-width: 18rem;">
+                        <div class="card-header text-center">Total Conversations</div>
+                        <div class="card-body">
+                          <h4 class="card-title text-center" style="font-size: 50px;">{{ tweet_data|length }}</h4>
+                          <p class="card-text text-center font-italic">total mentions on social media in the last 7 days</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-  
-                  <!-- column 2.3 - average mentions-->
-                  <div class="col" style="margin-top:2em;">
-                    <div class="card bg-light mb-3" style="max-width: 18rem;">
-                      <div class="card-header text-center">Average Mentions</div>
-                      <div class="card-body">
-                        <h5 class="card-title text-center" style="font-size: 50px;">{{ average_mentions }}</h5>
-                        <p class="card-text text-center font-italic">average mentions per day</p>
+    
+                    <!-- column 2.3 - average mentions-->
+                    <div class="col" style="margin-top:2em;">
+                      <div class="card bg-light mb-3 card-shadow" style="max-width: 18rem;">
+                        <div class="card-header text-center">Average Mentions</div>
+                        <div class="card-body">
+                          <h5 class="card-title text-center" style="font-size: 50px;">{{ average_mentions }}</h5>
+                          <p class="card-text text-center font-italic">average mentions per day</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <!-- chart -->
-              <div class="col-lg-12">
-                <div class="card" style="margin-top:2em;">
-                  <div class="card-header">
-                    <h2>Linechart</h2>
+  
+                <!-- chart -->
+                <div class="col-lg-12">
+                  <div class="card card-shadow" style="margin-top:2em;">
+                    <div class="card-header">
+                      <h2>Linechart</h2>
+                    </div>
+                    <canvas class="my-4" id="myChartConversations7Days" width="900" height="380"></canvas>
                   </div>
-                  <canvas class="my-4" id="myChartConversations7Days" width="900" height="380"></canvas>
                 </div>
               </div>
             </div>
+            
           </div>
-          
         </div>
-      </div>
-      <!-- End of Social Conversations -->
-
-      <!-- Conversations List Table-->
-      <div class="card" style="margin-top:2em;">
-        <div class="card-header">
-          <h3>Conversations List</h3>
+        <!-- End of Social Stats -->
+  
+        <!-- Conversations List Table-->
+        <div class="card card-shadow" style="margin-top:2em;">
+          <div class="card-header">
+            <h3>Conversations List</h3>
+          </div>
+          <div class="table-wrapper-scroll-y my-custom-scrollbar-table">
+            <table class="table table-bordered table-striped mb-0">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">User Name</th>
+                  <th scope="col">Profile URL</th>
+                  <th scope="col">Tweet</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in range(0, tweet_data|length) %}
+                <tr>
+                  <th scope="row">{{ i+1 }}</th>
+                  <td>{{ tweet_data.created_at[i] }}</td>
+                  <td>{{ tweet_data.user_name[i] }}</td>
+                  <td>{{ tweet_data.profile_url[i] }}</td>
+                  <td>{{ tweet_data.tweet_text[i] }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="table-wrapper-scroll-y my-custom-scrollbar-table">
-          <table class="table table-bordered table-striped mb-0">
-            <thead>
-              <tr>
-                <th scope="col">No</th>
-                <th scope="col">Date</th>
-                <th scope="col">User Name</th>
-                <th scope="col">Profile URL</th>
-                <th scope="col">Tweet</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for i in range(0, tweet_data|length) %}
-              <tr>
-                <th scope="row">{{ i+1 }}</th>
-                <td>{{ tweet_data.created_at[i] }}</td>
-                <td>{{ tweet_data.user_name[i] }}</td>
-                <td>{{ tweet_data.profile_url[i] }}</td>
-                <td>{{ tweet_data.tweet_text[i] }}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <!-- End of Conversations List Table-->
-
-      
-      <!-- Chart -->
-      <div class="container-fluid">
-        <!-- Melbourne Avg Price -->
-        <div class="row">
-          <div class="col-lg-6" style="margin-top:2em;">
-            <div class="card" style="margin-top:2em;">
-              <div class="card-header">
-                <h2>Melbourne Average Price</h2>
+        <!-- End of Conversations List Table-->
+  
+        <!-- Social Chart -->
+        <div class="container-fluid">
+          <!-- Melbourne Avg Price -->
+          <div class="row">
+            <div class="col-lg-6" style="margin-top:2em;">
+              <div class="card card-shadow" style="margin-top:2em;">
+                <div class="card-header">
+                  <h2>Melbourne Average Price</h2>
+                </div>
+                <canvas class="my-4" id="myChartMelb" width="600" height="400"></canvas>
               </div>
-              <canvas class="my-4" id="myChartMelb" width="600" height="400"></canvas>
+            </div>
+            
+            <!-- Timeseries -->
+            <div class="col-lg-6" style="margin-top:2em;">
+              <div class="card card-shadow" style="margin-top:2em;">
+                <div class="card-header">
+                  <h2>Linechart</h2>
+                </div>
+                <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+              </div>
             </div>
           </div>
-          
-          <!-- Timeseries -->
-          <div class="col-lg-6" style="margin-top:2em;">
-            <div class="card" style="margin-top:2em;">
-              <div class="card-header">
-                <h2>Linechart</h2>
-              </div>
-              <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
-            </div>
-          </div>
         </div>
+        <!-- End of SocialChart -->
+  
+        {% block page_content %}{% endblock %}
       </div>
-      <!-- End of Chart.js -->
-
-      {% block page_content %}{% endblock %}
-
-      
+      <!-- End of Stats -->
     </main>
     <!-- End of Main Dashboard -->
   </div>
