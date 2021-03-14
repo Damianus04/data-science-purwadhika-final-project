@@ -98,12 +98,12 @@
           </div>
       </div>
 
-      <!-- Card of Social Conversations -->
+      <!-- Social Dashboard -->
       <div class="container-fluid">
 
         <div class="row">
-          <!-- column 1 -->
-          <div class="col" style="margin-top:2em; margin-right:1em;">
+          <!-- column 1 - Conversations-->
+          <div class="col-lg-5" style="margin-top:2em;">
             <div class="card">
               <div class="card-header">
                 <h3>Conversations</h3>
@@ -134,48 +134,66 @@
             </div>
           </div>
 
-          <!-- column 2 -->
-          <div class="row">
-            <div class="col" style="margin-top:2em; margin-left:1em;">
-              <div class="card bg-light mb-3" style="max-width: 18rem;">
-                <div class="card-header text-center">Current Keyword</div>
-                <div class="card-body">
-                  <h5 class="card-title text-center" style="font-size: 15px;">{{ text_query }}</h5>
-                  <p class="card-text text-center font-italic">keyword that is being searched now</p>
-                  <p></p>
+          <!-- column 2 - Analytics -->
+          <div class="col-lg-7">
+            <div class="row">
+
+              <!-- stats -->
+              <div class="col-lg-12">
+                <div class="row">
+                  <!-- column 2.1 - current keyword-->
+                  <div class="col" style="margin-top:2em;">
+                    <div class="card bg-light mb-3" style="max-width: 18rem;">
+                      <div class="card-header text-center">Current Keyword</div>
+                      <div class="card-body">
+                        <h5 class="card-title text-center" style="font-size: 15px;">{{ text_query }}</h5>
+                        <p class="card-text text-center font-italic">keyword that is being searched now</p>
+                        <p></p>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <!-- column 2.2 - total conversations-->
+                  <div class="col" style="margin-top:2em;">
+                    <div class="card bg-light mb-3" style="max-width: 18rem;">
+                      <div class="card-header text-center">Total Conversations</div>
+                      <div class="card-body">
+                        <h4 class="card-title text-center" style="font-size: 50px;">{{ tweet_data|length }}</h4>
+                        <p class="card-text text-center font-italic">total mentions on social media in the last 7 days</p>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <!-- column 2.3 - average mentions-->
+                  <div class="col" style="margin-top:2em;">
+                    <div class="card bg-light mb-3" style="max-width: 18rem;">
+                      <div class="card-header text-center">Average Mentions</div>
+                      <div class="card-body">
+                        <h5 class="card-title text-center" style="font-size: 50px;">{{ average_mentions }}</h5>
+                        <p class="card-text text-center font-italic">average mentions per day</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- chart -->
+              <div class="col-lg-12">
+                <div class="card" style="margin-top:2em;">
+                  <div class="card-header">
+                    <h2>Linechart</h2>
+                  </div>
+                  <canvas class="my-4" id="myChartConversations7Days" width="900" height="380"></canvas>
                 </div>
               </div>
             </div>
-
-            <div class="col" style="margin-top:2em; margin-left:1em;">
-              <div class="card bg-light mb-3" style="max-width: 18rem;">
-                <div class="card-header text-center">Total Conversations</div>
-                <div class="card-body">
-                  <h4 class="card-title text-center" style="font-size: 50px;">{{ tweet_data|length }}</h4>
-                  <p class="card-text text-center font-italic">total mentions on social media in the last 7 days</p>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="col-lg-4" style="margin-top:2em; margin-left:1em;">
-              <div class="card bg-light mb-3" style="max-width: 18rem;">
-                <div class="card-header text-center">Average of Mentions/Day</div>
-                <div class="card-body">
-                  <h5 class="card-title text-center" style="font-size: 50px;">{{ average_mentions }}</h5>
-                  <p class="card-text text-center font-italic">average of total mentions per day</p>
-                  <p></p>
-                </div>
-              </div>
-            </div>
-
-
           </div>
+          
         </div>
       </div>
-      <!-- End of Card of Social Conversations -->
+      <!-- End of Social Conversations -->
 
-      <!-- Table of Social Stream -->
+      <!-- Conversations List Table-->
       <div class="card" style="margin-top:2em;">
         <div class="card-header">
           <h3>Conversations List</h3>
@@ -205,28 +223,37 @@
           </table>
         </div>
       </div>
-      <!-- End of Table of Social Stream -->
+      <!-- End of Conversations List Table-->
 
       
-      <!-- Chart.js -->
-      <div class="containter">
-        <canvas id="myChartMelb" width="400" height="400"></canvas>
-        <p id="caption">The chart is displaying a simple line chart.</p>
-      </div>
-
-      <div class="containter">
-        <canvas id="myChart" width="400" height="400"></canvas>
-        <p id="caption">The chart is displaying a simple line chart.</p>
+      <!-- Chart -->
+      <div class="container-fluid">
+        <!-- Melbourne Avg Price -->
+        <div class="row">
+          <div class="col-lg-6" style="margin-top:2em;">
+            <div class="card" style="margin-top:2em;">
+              <div class="card-header">
+                <h2>Melbourne Average Price</h2>
+              </div>
+              <canvas class="my-4" id="myChartMelb" width="600" height="400"></canvas>
+            </div>
+          </div>
+          
+          <!-- Timeseries -->
+          <div class="col-lg-6" style="margin-top:2em;">
+            <div class="card" style="margin-top:2em;">
+              <div class="card-header">
+                <h2>Linechart</h2>
+              </div>
+              <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- End of Chart.js -->
 
-      <div class="container">
-        <!-- button -->
-          <h5 class="nav-item font-weight-bold">
-              <a type="button" href="{{url_for('boxplot_route')}}" class="btn btn-success nav-link text-dark lead">Boxplot</a>
-          </h5>
-          {% block page_content %}{% endblock %}
-      </div>
+      {% block page_content %}{% endblock %}
+
       
     </main>
     <!-- End of Main Dashboard -->

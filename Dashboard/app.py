@@ -55,7 +55,6 @@ def keyword_search():
     legend = 'Average Price'
     labels = list(df_Regionname.Regionname)
     values = list(df_Regionname.Price)
-    print(labels, values)
 
     return render_template('index.html',
                            data=df, tweet_data=tweet_data, text_query=text_query,

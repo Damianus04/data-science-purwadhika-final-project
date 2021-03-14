@@ -89,8 +89,9 @@
       feather.replace()
     </script>
 
-    <!-- Graphs Chart.js -->
+    <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+        <!-- Linechart -->
     <script>
       var ctx = document.getElementById("myChart");
       var myChart = new Chart(ctx, {
@@ -120,11 +121,11 @@
         }
       });
     </script>
-
+        <!-- Barchart Melbourne Data-->
     <script>
         // Global parameters:
         // do not resize the chart canvas when its container does (keep at 600x400px)
-        Chart.defaults.global.responsive = false;
+        Chart.defaults.global.responsive = true;
         
         // define the chart data
         var chartData = {
@@ -164,6 +165,36 @@
         var myChart = new Chart(ctx, {
           type: 'bar',
           data: chartData,
+        });
+      </script>
+        <!-- Linechart Conversations for 7 days-->
+    <script>
+        var ctx = document.getElementById("myChartConversations7Days");
+        var myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+              data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+              lineTension: 0,
+              backgroundColor: 'transparent',
+              borderColor: '#007bff',
+              borderWidth: 4,
+              pointBackgroundColor: '#007bff'
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: false
+                }
+              }]
+            },
+            legend: {
+              display: false,
+            }
+          }
         });
       </script>
 
