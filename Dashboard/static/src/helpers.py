@@ -1,8 +1,16 @@
+import plotly.graph_objs as go
+import plotly
 import pandas as pd
 import tweepy
 import time
+import json
 pd.set_option('display.max_colwidth', 1000)
 
+# data
+real_estate = pd.read_csv('./data/melb_data.csv')
+
+
+######## TWITTER ########
 # api key
 api_key = "VF9Xv4WxUBUBMrH2yntvW2DD0"
 # api secret key
@@ -68,21 +76,42 @@ def get_tweets(keyword='indonesia', location="-0.789275,113.921326,5000km", lang
 
 
 # def get_tweets(text_query):
-#     # list to store tweets
-#     tweets_list = []
-#     # no of tweets
-#     count = 50
-#     try:
-#         # Pulling individual tweets from query
-#         for tweet in api.search(q=text_query, count=count):
-#             # print(tweet.text)
-#             # Adding to list that contains all tweets
-#             tweets_list.append({'created_at': tweet.created_at,
-#                                 'tweet_id': tweet.id,
-#                                 'tweet_text': tweet.text})
-#         # return tweets_list
-#         return pd.DataFrame.from_dict(tweets_list)
+    # list to store tweets
+    tweets_list = []
+    # no of tweets
+    count = 50
+    try:
+        # Pulling individual tweets from query
+        for tweet in api.search(q=text_query, count=count):
+            # print(tweet.text)
+            # Adding to list that contains all tweets
+            tweets_list.append({'created_at': tweet.created_at,
+                                'tweet_id': tweet.id,
+                                'tweet_text': tweet.text})
+        # return tweets_list
+        return pd.DataFrame.from_dict(tweets_list)
 
-#     except BaseException as e:
-#         print('failed on_status,', str(e))
-#         time.sleep(3)
+    except BaseException as e:
+        print('failed on_status,', str(e))
+        time.sleep(3)
+
+
+######## LINE PLOT ########
+def box_plot(data_set=real_estate, x_axis='Distance'):
+    data = [
+        go.Box(
+            x=data_set[x_axis],
+        )
+    ]
+
+    layout = go.Layout(
+        title="Box Plot",
+        xaxis=dict(title=x_axis),
+        boxmode='group'
+    )
+
+    result = {"data": data, "layout": layout}
+
+    graphJSON = json.dumps(result, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return graphJSON

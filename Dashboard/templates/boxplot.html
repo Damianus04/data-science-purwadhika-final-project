@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+
+{% block page_content %}
+
+    <!-- Melbourne - Table -->
+    <div class="card" style="margin-top:2em;">
+    <div class="card-header">
+        <h3 class="h3">Melbourne Data</h3>
+    </div>
+    <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table table-bordered table-striped mb-0">
+            <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Suburb</th>
+                <th scope="col">Address</th>
+                <th scope="col">Rooms</th>
+                <th scope="col">Type</th>
+                <th scope="col">Price</th>
+                <th scope="col">Method</th>
+                <th scope="col">SellerG</th>
+                <th scope="col">Date</th>
+                <th scope="col">Distance</th>
+                <th scope="col">Postcode</th>
+                <th scope="col">Bedroom2</th>
+                <th scope="col">Bathroom</th>
+                <th scope="col">Car</th>
+                <th scope="col">Landsize</th>
+                <th scope="col">Building Area</th>
+                <th scope="col">Year Built</th>
+            </tr>
+            </thead>
+            <!-- for loop to display data frame -->
+        
+            <tbody>
+            {% for i in range(0, data|length) %}
+            <tr>
+                <th scope="row">{{ i+1 }}</th>
+                <td>{{ data['Suburb'][i] }}</td>
+                <td>{{ data['Address'][i] }}</td>
+                <td>{{ data['Rooms'][i] }}</td>
+                <td>{{ data['Type'][i] }}</td>
+                <td>{{ data['Price'][i] }}</td>
+                <td>{{ data['Method'][i] }}</td>
+                <td>{{ data['SellerG'][i] }}</td>
+                <td>{{ data['Date'][i] }}</td>
+                <td>{{ data['Distance'][i] }}</td>
+                <td>{{ data['Postcode'][i] }}</td>
+                <td>{{ data['Bedroom2'][i] }}</td>
+                <td>{{ data['Bathroom'][i] }}</td>
+                <td>{{ data['Car'][i] }}</td>
+                <td>{{ data['Landsize'][i] }}</td>
+                <td>{{ data['BuildingArea'][i] }}</td>
+                <td>{{ data['YearBuilt'][i] }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <!-- End of Melbourne - Table -->
+
+    <!-- Melbourne - Boxplot -->
+    <div class="alert alert-dark" role="alert">
+        Data outliers dimulai sebarannya dari Distance: 23.35 hingga 48.1
+        <br/> Ada data outliers yang berada di bawah batas bawah, karena memang tidak ada jarak yang lebih kecil dari 0
+    </div>
+    <div class="container">
+        <div class="chart" id="bargraph">
+            <script>
+                var graphs = {{plot | safe}};
+                Plotly.plot('bargraph',graphs,{});
+            </script>
+        </div>
+    </div>
+
+{% endblock %}

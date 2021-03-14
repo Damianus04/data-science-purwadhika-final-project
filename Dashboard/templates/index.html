@@ -1,397 +1,236 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="https://dummyimage.com/600x400/781f78/e6e6ed&text=Online+Sentiment+Detector">
+{% extends 'base.html' %}
 
-    <title>Online Sentiment Detector</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/dashboard/">
-
-    <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css" rel="stylesheet">
-
-    <!-- My CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-
-
-  </head>
-
-
-  <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-1">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Online Sentiment Detector</a>
-      <!-- keyword search -->
-      <form action="{{ url_for('keyword_search')}}" method="POST" class="form-inline my-2 my-lg-0">
-        <input id="text" name="text" class="form-control mr-sm-2" type="search" 
-        placeholder="Search Keyword" aria-label="Search" id="inpkeyword" type="submit">
-        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-      </form>
-      <!-- end of keyword search -->
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
-        </li>
-      </ul>
-    </nav>
-    <!-- END OF NAVBAR -->
-    
-
-
-
-
-    <!-- MAIN BODY -->
-    <div class="container-fluid">
-      <div class="row">
-        <!-- Sidebar -->
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-        <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">
-                <span data-feather="home"></span>
-                Dashboard <span class="sr-only">(current)</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                <span data-feather="file"></span>
-                Orders
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                <span data-feather="shopping-cart"></span>
-                Products
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                <span data-feather="users"></span>
-                Customers
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                <span data-feather="bar-chart-2"></span>
-                Reports
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                <span data-feather="layers"></span>
-                Integrations
-                </a>
-            </li>
-            </ul>
-
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Saved reports</span>
-            <a class="d-flex align-items-center text-muted" href="#">
-                <span data-feather="plus-circle"></span>
+{% block content %}
+<!-- MAIN BODY -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">
+            <span data-feather="home"></span>
+            Dashboard <span class="sr-only">(current)</span>
             </a>
-            </h6>
-            <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Current month
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Last quarter
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Social engagement
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Year-end sale
-                </a>
-            </li>
-            </ul>
-        </div>
-        </nav>
-        <!-- End of Sidebar -->
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="file"></span>
+            Orders
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="shopping-cart"></span>
+            Products
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="users"></span>
+            Customers
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="bar-chart-2"></span>
+            Reports
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="layers"></span>
+            Integrations
+            </a>
+        </li>
+        </ul>
 
-        <!-- Main Dashboard -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-              <h1 class="h2">Dashboard</h1>
-              <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                  <button class="btn btn-sm btn-outline-secondary">Share</button>
-                  <button class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>
-              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                  <span data-feather="calendar"></span>
-                  This week
-              </button>
-              </div>
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+        <span>Saved reports</span>
+        <a class="d-flex align-items-center text-muted" href="#">
+            <span data-feather="plus-circle"></span>
+        </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            Current month
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            Last quarter
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            Social engagement
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            Year-end sale
+            </a>
+        </li>
+        </ul>
+    </div>
+    </nav>
+    <!-- End of Sidebar -->
+
+    <!-- Main Dashboard -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+          <h1 class="h1">Social Dashboard</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+              <button class="btn btn-sm btn-outline-secondary">Share</button>
+              <button class="btn btn-sm btn-outline-secondary">Export</button>
           </div>
+          <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+              <span data-feather="calendar"></span>
+              This week
+          </button>
+          </div>
+      </div>
 
-          <!-- Card of Social Conversations -->
-          <div class="container-fluid">
-  
-            <div class="row">
-              <!-- column 1 -->
-              <div class="col" style="margin-top:2em; margin-right:1em;">
-                <div class="card">
-                  <div class="card-header">
-                    <h2>Conversations</h2>
-                  </div>
-                  <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                    <table class="table table-bordered table-striped mb-0">
-                      <tbody>
-                        {% for i in range(0, tweet_data|length) %}
-                        <tr>
-                          <th scope="row">{{ i+1 }}</th>
-                          <td>
-                            <div class="card bg-light mb-3">
-                              <div class="card-header">{{ tweet_data.created_at[i] }}</div>
-                              <div class="card-body">
-                                <h5 class="card-title">{{ tweet_data.user_name[i] }}</h5>
-                                <p class="card-text">{{ tweet_data.tweet_text[i] }}</p>
-                                <br/>
-                                <p class="font-italic">{{ tweet_data.profile_url[i] }}</p>
-                                <p class="font-bold">sentiment</p>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+      <!-- Card of Social Conversations -->
+      <div class="container-fluid">
+
+        <div class="row">
+          <!-- column 1 -->
+          <div class="col" style="margin-top:2em; margin-right:1em;">
+            <div class="card">
+              <div class="card-header">
+                <h3>Conversations</h3>
               </div>
-
-              <!-- column 2 -->
-              <div class="row">
-                <div class="col" style="margin-top:2em; margin-left:1em;">
-                  <div class="card bg-light mb-3" style="max-width: 18rem;">
-                    <div class="card-header text-center">Current Keyword</div>
-                    <div class="card-body">
-                      <h5 class="card-title text-center" style="font-size: 15px;">{{ text_query }}</h5>
-                      <p class="card-text text-center font-italic">keyword that is being searched now</p>
-                      <p></p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col" style="margin-top:2em; margin-left:1em;">
-                  <div class="card bg-light mb-3" style="max-width: 18rem;">
-                    <div class="card-header text-center">Total Conversations</div>
-                    <div class="card-body">
-                      <h4 class="card-title text-center" style="font-size: 50px;">{{ tweet_data|length }}</h4>
-                      <p class="card-text text-center font-italic">total mentions on social media in the last 7 days</p>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="col-lg-4" style="margin-top:2em; margin-left:1em;">
-                  <div class="card bg-light mb-3" style="max-width: 18rem;">
-                    <div class="card-header text-center">Average of Mentions/Day</div>
-                    <div class="card-body">
-                      <h5 class="card-title text-center" style="font-size: 50px;">{{ average_mentions }}</h5>
-                      <p class="card-text text-center font-italic">average of total mentions per day</p>
-                      <p></p>
-                    </div>
-                  </div>
-                </div>
-
-
-              </div>
-            </div>
-          </div>
-          <!-- End of Card of Social Conversations -->
-
-          <!-- Table of Social Stream -->
-          <div class="card" style="margin-top:2em;">
-            <div class="card-header">
-              <h2>Social Media Conversation</h2>
-            </div>
-            <div class="table-wrapper-scroll-y my-custom-scrollbar-table">
-              <table class="table table-bordered table-striped mb-0">
-                <thead>
-                  <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">User Name</th>
-                    <th scope="col">Profile URL</th>
-                    <th scope="col">Tweet</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for i in range(0, tweet_data|length) %}
-                  <tr>
-                    <th scope="row">{{ i+1 }}</th>
-                    <td>{{ tweet_data.created_at[i] }}</td>
-                    <td>{{ tweet_data.user_name[i] }}</td>
-                    <td>{{ tweet_data.profile_url[i] }}</td>
-                    <td>{{ tweet_data.tweet_text[i] }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- End of Table of Social Stream -->
-
-          <!-- Linechart -->
-          <div class="card" style="margin-top:2em;">
-            <div class="card-header">
-              <h2>Linechart</h2>
-            </div>
-            <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
-          </div>
-          <!-- Linechart -->
-
-          <!-- Table -->
-          <div class="card" style="margin-top:2em;">
-            <div class="card-header">
-              <h2>Melbourne Data</h2>
-            </div>
-            <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+              <div class="table-wrapper-scroll-y my-custom-scrollbar">
                 <table class="table table-bordered table-striped mb-0">
-                  <thead>
-                    <tr>
-                      <th scope="col">No</th>
-                      <th scope="col">Suburb</th>
-                      <th scope="col">Address</th>
-                      <th scope="col">Rooms</th>
-                      <th scope="col">Type</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Method</th>
-                      <th scope="col">SellerG</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Distance</th>
-                      <th scope="col">Postcode</th>
-                      <th scope="col">Bedroom2</th>
-                      <th scope="col">Bathroom</th>
-                      <th scope="col">Car</th>
-                      <th scope="col">Landsize</th>
-                      <th scope="col">Building Area</th>
-                      <th scope="col">Year Built</th>
-                    </tr>
-                  </thead>
-                  <!-- for loop to display data frame -->
-              
                   <tbody>
-                    {% for i in range(0, data|length) %}
+                    {% for i in range(0, tweet_data|length) %}
                     <tr>
                       <th scope="row">{{ i+1 }}</th>
-                      <td>{{ data['Suburb'][i] }}</td>
-                      <td>{{ data['Address'][i] }}</td>
-                      <td>{{ data['Rooms'][i] }}</td>
-                      <td>{{ data['Type'][i] }}</td>
-                      <td>{{ data['Price'][i] }}</td>
-                      <td>{{ data['Method'][i] }}</td>
-                      <td>{{ data['SellerG'][i] }}</td>
-                      <td>{{ data['Date'][i] }}</td>
-                      <td>{{ data['Distance'][i] }}</td>
-                      <td>{{ data['Postcode'][i] }}</td>
-                      <td>{{ data['Bedroom2'][i] }}</td>
-                      <td>{{ data['Bathroom'][i] }}</td>
-                      <td>{{ data['Car'][i] }}</td>
-                      <td>{{ data['Landsize'][i] }}</td>
-                      <td>{{ data['BuildingArea'][i] }}</td>
-                      <td>{{ data['YearBuilt'][i] }}</td>
+                      <td>
+                        <div class="card bg-light mb-3">
+                          <div class="card-header">{{ tweet_data.created_at[i] }}</div>
+                          <div class="card-body">
+                            <h5 class="card-title">{{ tweet_data.user_name[i] }}</h5>
+                            <p class="card-text">{{ tweet_data.tweet_text[i] }}</p>
+                            <br/>
+                            <p class="font-italic">{{ tweet_data.profile_url[i] }}</p>
+                            <p class="font-bold">sentiment</p>
+                          </div>
+                        </div>
+                      </td>
                     </tr>
                     {% endfor %}
                   </tbody>
                 </table>
+              </div>
             </div>
           </div>
-          <!-- End of Table -->
-        </main>
-        <!-- End of Main Dashboard -->
-      </div>
-    </div>
-    <!-- END OF MAIN BODY -->
 
-    <!-- FOOTER -->
-    <footer class="footer text-muted bg-dark" style="margin-bottom:20pt; margin-top:20pt">
+          <!-- column 2 -->
+          <div class="row">
+            <div class="col" style="margin-top:2em; margin-left:1em;">
+              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header text-center">Current Keyword</div>
+                <div class="card-body">
+                  <h5 class="card-title text-center" style="font-size: 15px;">{{ text_query }}</h5>
+                  <p class="card-text text-center font-italic">keyword that is being searched now</p>
+                  <p></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col" style="margin-top:2em; margin-left:1em;">
+              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header text-center">Total Conversations</div>
+                <div class="card-body">
+                  <h4 class="card-title text-center" style="font-size: 50px;">{{ tweet_data|length }}</h4>
+                  <p class="card-text text-center font-italic">total mentions on social media in the last 7 days</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-lg-4" style="margin-top:2em; margin-left:1em;">
+              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header text-center">Average of Mentions/Day</div>
+                <div class="card-body">
+                  <h5 class="card-title text-center" style="font-size: 50px;">{{ average_mentions }}</h5>
+                  <p class="card-text text-center font-italic">average of total mentions per day</p>
+                  <p></p>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <!-- End of Card of Social Conversations -->
+
+      <!-- Table of Social Stream -->
+      <div class="card" style="margin-top:2em;">
+        <div class="card-header">
+          <h3>Conversations List</h3>
+        </div>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar-table">
+          <table class="table table-bordered table-striped mb-0">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Date</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Profile URL</th>
+                <th scope="col">Tweet</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in range(0, tweet_data|length) %}
+              <tr>
+                <th scope="row">{{ i+1 }}</th>
+                <td>{{ tweet_data.created_at[i] }}</td>
+                <td>{{ tweet_data.user_name[i] }}</td>
+                <td>{{ tweet_data.profile_url[i] }}</td>
+                <td>{{ tweet_data.tweet_text[i] }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- End of Table of Social Stream -->
+
+      
+      <!-- Chart.js -->
+      <div class="containter">
+        <canvas id="myChartMelb" width="400" height="400"></canvas>
+        <p id="caption">The chart is displaying a simple line chart.</p>
+      </div>
+
+      <div class="containter">
+        <canvas id="myChart" width="400" height="400"></canvas>
+        <p id="caption">The chart is displaying a simple line chart.</p>
+      </div>
+      <!-- End of Chart.js -->
+
       <div class="container">
-        <p class="float-right">
-          <a href="#">Back to top</a>
-        </p>
-        <p>
-          This template &copy; Bootstrap
-        </p>
-        <p>
-          New to Bootstrap?
-          <a href="https://getbootstrap.com/">Visit the homepage</a> or read our
-          <a href="/docs/4.5/getting-started/introduction/"
-            >getting started guide</a
-          >.
-        </p>
+        <!-- button -->
+          <h5 class="nav-item font-weight-bold">
+              <a type="button" href="{{url_for('boxplot_route')}}" class="btn btn-success nav-link text-dark lead">Boxplot</a>
+          </h5>
+          {% block page_content %}{% endblock %}
       </div>
-    </footer>
-    <!-- END OF FOOTER -->
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
-    <script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
-
-    <!-- My JavaScript -->
-    <script src="{{url_for('static', filename='script.js')}}"></script>
-
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-      feather.replace()
-    </script>
-
-    <!-- Graphs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-    <script>
-      var ctx = document.getElementById("myChart");
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          datasets: [{
-            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-            lineTension: 0,
-            backgroundColor: 'transparent',
-            borderColor: '#007bff',
-            borderWidth: 4,
-            pointBackgroundColor: '#007bff'
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
-            }]
-          },
-          legend: {
-            display: false,
-          }
-        }
-      });
-    </script>
-  </body>
-</html>
+      
+    </main>
+    <!-- End of Main Dashboard -->
+  </div>
+</div>
+<!-- END OF MAIN BODY -->
+{% endblock %}

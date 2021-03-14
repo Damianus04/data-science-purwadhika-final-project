@@ -209,3 +209,63 @@ def index():
         tweet_data = get_tweets(text_query)
 
     return render_template('index.html', data=table, tweet_data=tweet_data, text_query=text_query)
+
+
+    <!-- trial of get tweet -->
+    <div class="container text-center" style="margin-bottom: 80px;">
+      <form action="{{ url_for('index')}}" method="POST">
+        <div class="form-group">
+          <textarea
+            placeholder="Enter Keyword Here"
+            name="text"
+            class="form-control"
+            id="text"
+            rows="3"
+          ></textarea>
+          <input
+            id="inpkeyword"
+            type="submit"
+            class="btn btn-primary input-keyword"
+            value="Check"
+          />
+        </div>
+      </form>
+    </div>
+
+    <div class="containter">
+      <p>{{ tweet_data }}</p>
+      <p>{{ tweet_data }}</p>
+
+    </div>
+    <!-- trial of get tweet -->
+
+# my functions
+from static.src.plot import get_tweets
+
+# text = get_tweets('vaksin')
+# print(text)
+
+# @app.route('/', methods=["GET", "POST"])
+# def index():
+#     # Dummy Melbourne Data
+#     table = real_estate.head(100)
+
+#     # Get Tweet
+#     if request.method == "GET":
+#         return render_template('index.html')
+#     elif request.method == "POST":
+#         # Get Tweet
+#         text_query = request.form['text']
+#         tweet_data = get_tweets(text_query)
+
+#     return render_template('index.html', data=table, tweet_data=tweet_data, text_query=text_query)
+
+
+<!-- Linechart -->
+<div class="card" style="margin-top:2em;">
+  <div class="card-header">
+    <h2>Linechart</h2>
+  </div>
+  <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+</div>
+<!-- Linechart -->
