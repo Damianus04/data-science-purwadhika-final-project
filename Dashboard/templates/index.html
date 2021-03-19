@@ -184,7 +184,7 @@
                 <div class="col-lg-12">
                   <div class="card card-shadow" style="margin-top:2em;">
                     <div class="card-header">
-                      <h2>Linechart</h2>
+                      <h2>Conversations Trend</h2>
                     </div>
                     <canvas class="my-4" id="myChartConversations7Days" width="900" height="380"></canvas>
                   </div>
@@ -254,6 +254,10 @@
         </div>
         <!-- End of SocialChart -->
   
+        <p>{{ tweet_time_label }}</p>
+        <p>{{ tweet_count_values }}</p>
+
+
         {% block page_content %}{% endblock %}
       </div>
       <!-- End of Stats -->
