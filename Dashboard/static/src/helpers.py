@@ -1,5 +1,3 @@
-import plotly.graph_objs as go
-import plotly
 import pandas as pd
 import tweepy
 import time
@@ -10,7 +8,7 @@ pd.set_option('display.max_colwidth', 1000)
 real_estate = pd.read_csv('./data/melb_data.csv')
 
 
-######## TWITTER ########
+######## GET TWITTER TEXT ########
 # api key
 api_key = "VF9Xv4WxUBUBMrH2yntvW2DD0"
 # api secret key
@@ -96,22 +94,20 @@ def get_tweets(keyword='indonesia', location="-0.789275,113.921326,5000km", lang
         time.sleep(3)
 
 
-######## LINE PLOT ########
-def box_plot(data_set=real_estate, x_axis='Distance'):
-    data = [
-        go.Box(
-            x=data_set[x_axis],
-        )
-    ]
+######## PREDICT TWITTER TEXT ########
+def predict_sentiment(model, text_list, colname='tweet_text'):
+    y_pred_desc_list = []
+    y_pred = model.predict(text_list[colname])
+    for i, t in enumerate(y_pred):
+        if y_pred[i] == 1:
+            y_pred_desc = 'good'
+        elif y_pred[i] == 0:
+            y_pred_desc = 'neutral'
+        elif y_pred[i] == -1:
+            y_pred_desc = 'bad'
+        else:
+            y_pred_desc = 'not detected'
 
-    layout = go.Layout(
-        title="Box Plot",
-        xaxis=dict(title=x_axis),
-        boxmode='group'
-    )
+        y_pred_desc_list.append(y_pred_desc)
 
-    result = {"data": data, "layout": layout}
-
-    graphJSON = json.dumps(result, cls=plotly.utils.PlotlyJSONEncoder)
-
-    return graphJSON
+    return y_pred_desc_list

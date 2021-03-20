@@ -125,7 +125,7 @@
                               <p class="card-text">{{ tweet_data.tweet_text[i] }}</p>
                               <br/>
                               <p class="font-italic">{{ tweet_data.profile_url[i] }}</p>
-                              <p class="font-bold">sentiment</p>
+                              <p class="font-bold">{{ tweet_data.sentiment[i] }}</p>
                             </div>
                           </div>
                         </td>
@@ -196,6 +196,33 @@
         </div>
         <!-- End of Social Stats -->
   
+  
+        <!-- Social Chart -->
+        <div class="container-fluid">
+          <!-- Social Sentiment -->
+          <div class="row">
+            <div class="col-lg-5" style="margin-top:2em;">
+              <div class="card card-shadow" style="margin-top:2em;">
+                <div class="card-header">
+                  <h2>Social Sentiment</h2>
+                </div>
+                <canvas class="my-4" id="myChartMelb" width="600" height="400"></canvas>
+              </div>
+            </div>
+            
+            <!-- Timeseries -->
+            <div class="col-lg-7" style="margin-top:2em;">
+              <div class="card card-shadow" style="margin-top:2em;">
+                <div class="card-header">
+                  <h2>Linechart</h2>
+                </div>
+                <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of SocialChart -->
+
         <!-- Conversations List Table-->
         <div class="card card-shadow" style="margin-top:2em;">
           <div class="card-header">
@@ -210,6 +237,7 @@
                   <th scope="col">User Name</th>
                   <th scope="col">Profile URL</th>
                   <th scope="col">Tweet</th>
+                  <th scope="col">Sentiment</th>
                 </tr>
               </thead>
               <tbody>
@@ -220,6 +248,7 @@
                   <td>{{ tweet_data.user_name[i] }}</td>
                   <td>{{ tweet_data.profile_url[i] }}</td>
                   <td>{{ tweet_data.tweet_text[i] }}</td>
+                  <td>{{ tweet_data.sentiment[i] }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -227,7 +256,7 @@
           </div>
         </div>
         <!-- End of Conversations List Table-->
-  
+
         <!-- Social Chart -->
         <div class="container-fluid">
           <!-- Melbourne Avg Price -->
@@ -237,7 +266,7 @@
                 <div class="card-header">
                   <h2>Melbourne Average Price</h2>
                 </div>
-                <canvas class="my-4" id="myChartMelb" width="600" height="400"></canvas>
+                <canvas class="my-4" id="myChartMelbbottom" width="600" height="400"></canvas>
               </div>
             </div>
             
@@ -247,17 +276,13 @@
                 <div class="card-header">
                   <h2>Linechart</h2>
                 </div>
-                <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+                <canvas class="my-4" id="myChartbottom" width="900" height="380"></canvas>
               </div>
             </div>
           </div>
         </div>
         <!-- End of SocialChart -->
-  
-        <p>{{ tweet_time_label }}</p>
-        <p>{{ tweet_count_values }}</p>
-
-
+        
         {% block page_content %}{% endblock %}
       </div>
       <!-- End of Stats -->

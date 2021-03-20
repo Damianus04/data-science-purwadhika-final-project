@@ -121,53 +121,43 @@
         }
       });
     </script>
-        <!-- Barchart Melbourne Data-->
+        <!-- Pie Chart of Tweet Sentiment-->
     <script>
-        // Global parameters:
         // do not resize the chart canvas when its container does (keep at 600x400px)
         Chart.defaults.global.responsive = true;
         
         // define the chart data
-        var chartData = {
-          labels : [{% for item in labels %}
-                    "{{item}}",
-                    {% endfor %}],
-          datasets : [{
-              label: '{{ legend }}',
-              fill: true,
-              lineTension: 0.1,
-              backgroundColor: "rgba(75,192,192,0.4)",
-              borderColor: "rgba(75,192,192,1)",
-              borderCapStyle: 'butt',
-              borderDash: [],
-              borderDashOffset: 0.0,
-              borderJoinStyle: 'miter',
-              pointBorderColor: "rgba(75,192,192,1)",
-              pointBackgroundColor: "#fff",
-              pointBorderWidth: 1,
-              pointHoverRadius: 5,
-              pointHoverBackgroundColor: "rgba(75,192,192,1)",
-              pointHoverBorderColor: "rgba(220,220,220,1)",
-              pointHoverBorderWidth: 2,
-              pointRadius: 1,
-              pointHitRadius: 10,
-              data : [{% for item in values %}
+         var  data = {
+            datasets: [{
+                data: [{% for item in tweet_sentiment_values %}
                         {{item}},
-                      {% endfor %}],
-              spanGaps: false
-          }]
-        }
+                       {% endfor %}],
+                backgroundColor: ["#FF4136", "#2ECC40", "#7FDBFF"]
+                }],
+                
+            
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: [{% for item in tweet_sentiment_label %}
+                      "{{item}}",
+                    {% endfor %}],
+          };
         
         // get chart canvas
         var ctx = document.getElementById("myChartMelb").getContext("2d");
         
         // create the chart using the chart canvas
         var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: chartData,
+          type: 'doughnut',
+          data: data,
+          options: {
+                      responsive: true,
+                      title:{
+                          display: true,
+                      }
+                   }
         });
       </script>
-        <!-- Linechart Conversations for 7 days-->
+        <!-- Conversations Trend-->
     <script>
         // do not resize the chart canvas when its container does (keep at 600x400px)
         Chart.defaults.global.responsive = true;
@@ -209,6 +199,83 @@
         // create the chart using the chart canvas
         var myChart = new Chart(ctx, {
           type: 'line',
+          data: chartData,
+        });
+      </script>
+
+    <!-- Linechart bottom -->
+    <script>
+      var ctx = document.getElementById("myChartbottom");
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          datasets: [{
+            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+            lineTension: 0,
+            backgroundColor: 'transparent',
+            borderColor: '#007bff',
+            borderWidth: 4,
+            pointBackgroundColor: '#007bff'
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }]
+          },
+          legend: {
+            display: false,
+          }
+        }
+      });
+    </script>
+        <!-- Barchart Melbourne Data bottom-->
+    <script>
+        // Global parameters:
+        // do not resize the chart canvas when its container does (keep at 600x400px)
+        Chart.defaults.global.responsive = true;
+        
+        // define the chart data
+        var chartData = {
+          labels : [{% for item in labels %}
+                    "{{item}}",
+                    {% endfor %}],
+          datasets : [{
+              label: '{{ legend }}',
+              fill: true,
+              lineTension: 0.1,
+              backgroundColor: "rgba(75,192,192,0.4)",
+              borderColor: "rgba(75,192,192,1)",
+              borderCapStyle: 'butt',
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderColor: "rgba(75,192,192,1)",
+              pointBackgroundColor: "#fff",
+              pointBorderWidth: 1,
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: "rgba(75,192,192,1)",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              pointHoverBorderWidth: 2,
+              pointRadius: 1,
+              pointHitRadius: 10,
+              data : [{% for item in values %}
+                        {{item}},
+                      {% endfor %}],
+              spanGaps: false
+          }]
+        }
+        
+        // get chart canvas
+        var ctx = document.getElementById("myChartMelbbottom").getContext("2d");
+        
+        // create the chart using the chart canvas
+        var myChart = new Chart(ctx, {
+          type: 'bar',
           data: chartData,
         });
       </script>

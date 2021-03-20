@@ -5,9 +5,11 @@ import pandas as pd
 import json
 import time
 from datetime import datetime
+from joblib import load
+
 
 # my functions
-from static.src.helpers import get_tweets
+from static.src.helpers import get_tweets, predict_sentiment
 
 # visualization
 # import plotly.graph_objs as go
@@ -18,6 +20,7 @@ from static.src.helpers import get_tweets
 
 # data
 real_estate = pd.read_csv('./data/melb_data.csv')
+model = load('model/dummy_sentiment_prediction.joblib')
 
 
 app = Flask(__name__)
@@ -85,7 +88,17 @@ def keyword_search():
             tweet_time_label = ['None']
             tweet_count_values = [0]
 
-    # Chart.js
+    # Predict Twitter Text
+    prediction_list = predict_sentiment(
+        model, tweet_data, colname='tweet_text')
+    tweet_data['sentiment'] = prediction_list
+
+    sentiment_chart = tweet_data[['sentiment', 'tweet_text']].groupby(
+        ['sentiment'], as_index=False).count()
+    tweet_sentiment_label = list(sentiment_chart.sentiment)
+    tweet_sentiment_values = list(sentiment_chart.tweet_text)
+
+    # Melbourne Data
     df_Regionname = df[['Price', 'Regionname']].groupby(
         ['Regionname'], as_index=False).mean()
     legend = 'Average Price'
@@ -96,7 +109,8 @@ def keyword_search():
                            data=df, tweet_data=tweet_data, text_query=text_query,
                            total_mentions=total_mentions, average_mentions=average_mentions,
                            legend=legend, labels=labels, values=values,
-                           tweet_time_label=tweet_time_label, tweet_count_values=tweet_count_values, tweet_legend=tweet_legend
+                           tweet_time_label=tweet_time_label, tweet_count_values=tweet_count_values, tweet_legend=tweet_legend,
+                           tweet_sentiment_label=tweet_sentiment_label, tweet_sentiment_values=tweet_sentiment_values
                            )
 
 
