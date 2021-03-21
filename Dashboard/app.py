@@ -83,20 +83,22 @@ def keyword_search():
             else:
                 tweet_time_label = list(time2.time2)
                 tweet_count_values = list(time2.tweet_text)
+
+            # Predict Twitter Text
+            prediction_list = predict_sentiment(
+                model, tweet_data, colname='tweet_text')
+            tweet_data['sentiment'] = prediction_list
+
+            sentiment_chart = tweet_data[['sentiment', 'tweet_text']].groupby(
+                ['sentiment'], as_index=False).count()
+            tweet_sentiment_label = list(sentiment_chart.sentiment)
+            tweet_sentiment_values = list(sentiment_chart.tweet_text)
         except:
             tweet_legend = "conversations"
             tweet_time_label = ['None']
             tweet_count_values = [0]
-
-    # Predict Twitter Text
-    prediction_list = predict_sentiment(
-        model, tweet_data, colname='tweet_text')
-    tweet_data['sentiment'] = prediction_list
-
-    sentiment_chart = tweet_data[['sentiment', 'tweet_text']].groupby(
-        ['sentiment'], as_index=False).count()
-    tweet_sentiment_label = list(sentiment_chart.sentiment)
-    tweet_sentiment_values = list(sentiment_chart.tweet_text)
+            tweet_sentiment_label = ['None']
+            tweet_sentiment_values = [0]
 
     # Melbourne Data
     df_Regionname = df[['Price', 'Regionname']].groupby(
