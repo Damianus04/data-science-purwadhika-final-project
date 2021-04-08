@@ -10,6 +10,7 @@ from joblib import load
 
 # my functions
 from static.src.helpers import get_tweets, predict_sentiment
+from static.src.helpers import text_preprocessing_with_stem
 
 # visualization
 # import plotly.graph_objs as go
@@ -21,10 +22,28 @@ from static.src.helpers import get_tweets, predict_sentiment
 # data
 real_estate = pd.read_csv('./data/melb_data.csv')
 model = load('model/dummy_sentiment_prediction.joblib')
+# model = load('model/logit_hyper_rand_5000.joblib')
+text_sample = ['aku makan babi', 'dia tidak bisa sepakbola']
 
+
+# def model_definition():
+#     model_joblib = "none"
+#     if __name__ == '__main__':
+#         text_preprocessing_with_stem
+#         model_joblib = load('model/logit_hyper_rand_5000.joblib')
+#         return model_joblib
+#     else:
+#         pass
+
+
+# model = model_definition()
 
 app = Flask(__name__)
 
+
+# text_sample_prediction = model.predict(text_sample)
+print(model)
+# print(text_sample_prediction)
 
 ########## ROUTE FUNCTION ##########
 # Route to index.html
