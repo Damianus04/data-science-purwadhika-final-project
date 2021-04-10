@@ -1,4 +1,6 @@
 # Machine Learning Libraries
+import joblib
+from joblib import load
 from sklearn.metrics import confusion_matrix, classification_report, f1_score, recall_score, precision_score, plot_confusion_matrix, plot_roc_curve, roc_curve
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
@@ -30,8 +32,8 @@ pd.set_option('display.max_colwidth', 1000)
 
 
 # NLP Libraries
-nltk.download('stopwords')
-nltk.download('punkt')
+# nltk.download('stopwords')
+# nltk.download('punkt')
 
 # NLP Libraries - Stemming Bahasa Indonesia - Sastrawi
 factory = StemmerFactory()
@@ -119,7 +121,7 @@ def stem(text):
 # text preprocessing function with stemming
 
 
-def text_preprocessing_with_stem(text):
+def text_preprocessing(text):
     step1 = to_lower(text)
     step2 = remove_numbers(text)
     step3 = remove_punct(text)
@@ -131,10 +133,6 @@ def text_preprocessing_with_stem(text):
 
     return step8
 
-
-if __name__ == '__main__':
-    text_preprocessing_with_stem
-    model = load('model/logit_hyper_rand_5000.joblib')
 
 ######## GET TWITTER TEXT ########
 # api key

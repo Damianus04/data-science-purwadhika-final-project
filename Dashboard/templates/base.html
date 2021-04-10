@@ -100,11 +100,11 @@
       
       // define the chart data
       var chartData = {
-        labels : [{% for item in labels %}
+        labels : [{% for item in tweet_time_label %}
                   "{{item}}",
                   {% endfor %}],
         datasets : [{
-            label: '{{ legend }}',
+            label: '{{ tweet_legend }}',
             fill: true,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -261,11 +261,11 @@
         
         // define the chart data
         var chartData = {
-          labels : [{% for item in labels %}
+          labels : [{% for item in reach_data_screen_name %}
                     "{{item}}",
                     {% endfor %}],
           datasets : [{
-              label: '{{ legend }}',
+              label: 'Top-10 Accounts',
               fill: true,
               lineTension: 0.1,
               backgroundColor: "rgba(75,192,192,0.4)",
@@ -283,7 +283,7 @@
               pointHoverBorderWidth: 2,
               pointRadius: 1,
               pointHitRadius: 10,
-              data : [{% for item in values %}
+              data : [{% for item in reach_data_followers %}
                         {{item}},
                       {% endfor %}],
               spanGaps: false
@@ -291,12 +291,16 @@
         }
         
         // get chart canvas
-        var ctx = document.getElementById("myChartMelbbottom").getContext("2d");
+        var ctx = document.getElementById("myChartTop10Account").getContext("2d");
         
         // create the chart using the chart canvas
         var myChart = new Chart(ctx, {
           type: 'bar',
           data: chartData,
+          options: {
+            indexAxis: 'y',
+          }
+        
         });
       </script>
 

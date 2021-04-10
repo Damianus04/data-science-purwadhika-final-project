@@ -6,11 +6,12 @@ import json
 import time
 from datetime import datetime
 from joblib import load
-
+import joblib
+from sklearn.externals import joblib
 
 # my functions
 from static.src.helpers import get_tweets, predict_sentiment
-from static.src.helpers import text_preprocessing_with_stem
+from static.src.helpers import text_preprocessing
 
 # visualization
 # import plotly.graph_objs as go
@@ -21,19 +22,24 @@ from static.src.helpers import text_preprocessing_with_stem
 
 # data
 real_estate = pd.read_csv('./data/melb_data.csv')
-model = load('model/dummy_sentiment_prediction.joblib')
-# model = load('model/logit_hyper_rand_5000.joblib')
-text_sample = ['aku makan babi', 'dia tidak bisa sepakbola']
+# model = load('model/dummy_sentiment_prediction.joblib')
+text_preprocessing = text_preprocessing
+model = load('model/logit_hyper_rand_wo_stem_all_jcopml_way.joblib')
+# if __name__ == '__main__':
+#     text_preprocessing
+#     model = model
 
 
-# def model_definition():
-#     model_joblib = "none"
-#     if __name__ == '__main__':
-#         text_preprocessing_with_stem
-#         model_joblib = load('model/logit_hyper_rand_5000.joblib')
-#         return model_joblib
-#     else:
-#         pass
+# print(model)
+text_sample = ['aku makan ikan', 'dia tidak bisa sepakbola']
+
+
+# if __name__ == '__main__':
+#     text_preprocessing_with_stem
+#     model_joblib = load('model/logit_hyper_rand.joblib')
+#     print('success')
+# else:
+#     print('fail')
 
 
 # model = model_definition()
@@ -42,7 +48,7 @@ app = Flask(__name__)
 
 
 # text_sample_prediction = model.predict(text_sample)
-print(model)
+# print(model_joblib)
 # print(text_sample_prediction)
 
 ########## ROUTE FUNCTION ##########
@@ -126,12 +132,19 @@ def keyword_search():
     labels = list(df_Regionname.Regionname)
     values = list(df_Regionname.Price)
 
+    # potential reach data
+    reach_data = tweet_data[['screen_name', 'followers']].head(
+        10).sort_values(by='followers', ascending=False)
+    reach_data_screen_name = list(reach_data.screen_name)
+    reach_data_followers = list(reach_data.followers)
+
     return render_template('index.html',
                            data=df, tweet_data=tweet_data, text_query=text_query,
                            total_mentions=total_mentions, average_mentions=average_mentions,
                            legend=legend, labels=labels, values=values,
                            tweet_time_label=tweet_time_label, tweet_count_values=tweet_count_values, tweet_legend=tweet_legend,
-                           tweet_sentiment_label=tweet_sentiment_label, tweet_sentiment_values=tweet_sentiment_values
+                           tweet_sentiment_label=tweet_sentiment_label, tweet_sentiment_values=tweet_sentiment_values,
+                           reach_data_screen_name=reach_data_screen_name, reach_data_followers=reach_data_followers
                            )
 
 
