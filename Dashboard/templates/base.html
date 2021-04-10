@@ -253,7 +253,7 @@
       });
     </script>
     
-    <!-- Barchart Melbourne Data bottom-->
+    <!-- Top-10 Accounts -->
     <script>
         // Global parameters:
         // do not resize the chart canvas when its container does (keep at 600x400px)
@@ -265,7 +265,8 @@
                     "{{item}}",
                     {% endfor %}],
           datasets : [{
-              label: 'Top-10 Accounts',
+              axis: 'y',
+              label: 'Followers',
               fill: true,
               lineTension: 0.1,
               backgroundColor: "rgba(75,192,192,0.4)",
@@ -296,11 +297,7 @@
         // create the chart using the chart canvas
         var myChart = new Chart(ctx, {
           type: 'bar',
-          data: chartData,
-          options: {
-            indexAxis: 'y',
-          }
-        
+          data: chartData,        
         });
       </script>
 

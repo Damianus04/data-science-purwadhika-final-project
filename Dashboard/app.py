@@ -22,24 +22,17 @@ from static.src.helpers import text_preprocessing
 
 # data
 real_estate = pd.read_csv('./data/melb_data.csv')
-# model = load('model/dummy_sentiment_prediction.joblib')
 text_preprocessing = text_preprocessing
-model = load('model/logit_hyper_rand_wo_stem_all_jcopml_way.joblib')
+model = load('model/logit_hyper_rand_wo_preprocessor_all_jcopml_way.joblib')
+# model = load('model/logit_hyper_rand.joblib')
+
 # if __name__ == '__main__':
 #     text_preprocessing
-#     model = model
+#     model = load('model/logit_hyper_rand.joblib')
 
 
 # print(model)
 text_sample = ['aku makan ikan', 'dia tidak bisa sepakbola']
-
-
-# if __name__ == '__main__':
-#     text_preprocessing_with_stem
-#     model_joblib = load('model/logit_hyper_rand.joblib')
-#     print('success')
-# else:
-#     print('fail')
 
 
 # model = model_definition()
@@ -118,12 +111,20 @@ def keyword_search():
                 ['sentiment'], as_index=False).count()
             tweet_sentiment_label = list(sentiment_chart.sentiment)
             tweet_sentiment_values = list(sentiment_chart.tweet_text)
+
+            # potential reach data
+            reach_data = tweet_data[['screen_name', 'followers']].head(
+                10).sort_values(by='followers', ascending=False)
+            reach_data_screen_name = list(reach_data.screen_name)
+            reach_data_followers = list(reach_data.followers)
         except:
             tweet_legend = "conversations"
             tweet_time_label = ['None']
             tweet_count_values = [0]
             tweet_sentiment_label = ['None']
             tweet_sentiment_values = [0]
+            reach_data_screen_name = ['None']
+            reach_data_followers = [0]
 
     # Melbourne Data
     df_Regionname = df[['Price', 'Regionname']].groupby(
@@ -131,12 +132,6 @@ def keyword_search():
     legend = 'Average Price'
     labels = list(df_Regionname.Regionname)
     values = list(df_Regionname.Price)
-
-    # potential reach data
-    reach_data = tweet_data[['screen_name', 'followers']].head(
-        10).sort_values(by='followers', ascending=False)
-    reach_data_screen_name = list(reach_data.screen_name)
-    reach_data_followers = list(reach_data.followers)
 
     return render_template('index.html',
                            data=df, tweet_data=tweet_data, text_query=text_query,
