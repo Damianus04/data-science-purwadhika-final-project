@@ -32,7 +32,7 @@ model = load('model/logit_hyper_rand_wo_preprocessor.joblib')
 
 # print(model)
 text_sample = ['aku makan ikan', 'dia tidak bisa sepakbola']
-print(model)
+# print(model)
 
 # model = model_definition()
 
