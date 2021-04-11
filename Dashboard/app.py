@@ -22,18 +22,17 @@ from static.src.helpers import text_preprocessing
 
 # data
 real_estate = pd.read_csv('./data/melb_data.csv')
-text_preprocessing = text_preprocessing
-model = load('model/logit_hyper_rand_wo_preprocessor_all_jcopml_way.joblib')
+# text_preprocessing = text_preprocessing
+model = load('model/logit_hyper_rand_wo_preprocessor.joblib')
 # model = load('model/logit_hyper_rand.joblib')
 
 # if __name__ == '__main__':
-#     text_preprocessing
 #     model = load('model/logit_hyper_rand.joblib')
 
 
 # print(model)
 text_sample = ['aku makan ikan', 'dia tidak bisa sepakbola']
-
+print(model)
 
 # model = model_definition()
 
