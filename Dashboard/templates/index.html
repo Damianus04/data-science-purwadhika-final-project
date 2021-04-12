@@ -8,73 +8,55 @@
     <nav class="col-md-2 d-none d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link active" href="#">
-            <span data-feather="home"></span>
-            Dashboard <span class="sr-only">(current)</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-            <span data-feather="file"></span>
-            Orders
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-            <span data-feather="shopping-cart"></span>
-            Products
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-            <span data-feather="users"></span>
-            Customers
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-            <span data-feather="bar-chart-2"></span>
-            Reports
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-            <span data-feather="layers"></span>
-            Integrations
-            </a>
-        </li>
+          <li class="nav-item">
+              <a class="nav-link active" href="#">
+              <span data-feather="home"></span>
+              Dashboard <span class="sr-only">(current)</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#conversations">
+              <span data-feather="users"></span>
+              Conversations
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#conversations_list">
+              <span data-feather="users"></span>
+              Conversations List
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#sentiment">
+              <span data-feather="layers"></span>
+              Sentiment
+              </a>
+          </li>
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-        <span>Saved reports</span>
+        <span>Top Information</span>
         <a class="d-flex align-items-center text-muted" href="#">
             <span data-feather="plus-circle"></span>
         </a>
         </h6>
         <ul class="nav flex-column mb-2">
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#topwords">
             <span data-feather="file-text"></span>
-            Current month
+            Top Words
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#topaccounts">
             <span data-feather="file-text"></span>
-            Last quarter
+            Top Accounts
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#toplocations">
             <span data-feather="file-text"></span>
-            Social engagement
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-            <span data-feather="file-text"></span>
-            Year-end sale
+            Top Locations
             </a>
         </li>
         </ul>
@@ -88,14 +70,20 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
           <h1 class="h1">Social Dashboard</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-              <button class="btn btn-sm btn-outline-secondary">Share</button>
-              <button class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-          <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-              <span data-feather="calendar"></span>
-              This week
-          </button>
+            <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sentiment
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" method="POST">Good</a>
+                <a class="dropdown-item" href="#">Neutral</a>
+                <a class="dropdown-item" href="#">Bad</a>
+              </div>
+            </div>
           </div>
       </div>
 
@@ -109,7 +97,7 @@
             <div class="col-lg-5" style="margin-top:2em;">
               <div class="card card-shadow">
                 <div class="card-header">
-                  <h3>Conversations</h3>
+                  <h3 id='conversations'>Conversations</h3>
                 </div>
                 <div class="table-wrapper-scroll-y my-custom-scrollbar">
                   <table class="table table-bordered table-striped mb-0">
@@ -214,7 +202,7 @@
             <div class="col-lg-5" style="margin-top:2em;">
               <div class="card card-shadow" style="margin-top:2em;">
                 <div class="card-header">
-                  <h2>Social Sentiment</h2>
+                  <h2 id='sentiment'>Social Sentiment</h2>
                 </div>
                 <canvas class="my-4" id="myChartSentiment" width="600" height="400"></canvas>
               </div>
@@ -223,10 +211,36 @@
             <!-- Word Cloud -->
             <div class="col-lg-7" style="margin-top:2em;">
               <div class="card card-shadow" style="margin-top:2em;">
-                <div class="card-header">
-                  <h2>Word Cloud</h2>
+                <div id='topwords' class="card-header">
+                  <h2>Top Words</h2>
                 </div>
                 <canvas class="my-4" id="myChartWordCloud" width="900" height="380"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of SocialChart -->
+
+        <!-- Social Chart -->
+        <div class="container-fluid">
+          <!-- Top-10 Accounts -->
+          <div class="row">
+            <div class="col-lg-6" style="margin-top:2em;">
+              <div class="card card-shadow" style="margin-top:2em;">
+                <div id='topaccounts' class="card-header">
+                  <h2>Top Accounts</h2>
+                </div>
+                <canvas class="my-4" id="myChartTop10Account" width="600" height="400"></canvas>
+              </div>
+            </div>
+            
+            <!-- Top-10 Locations -->
+            <div class="col-lg-6" style="margin-top:2em;">
+              <div class="card card-shadow" style="margin-top:2em;">
+                <div id='toplocations' class="card-header">
+                  <h2>Top Locations</h2>
+                </div>
+                <canvas class="my-4" id="myChartTop10Location" width="900" height="380"></canvas>
               </div>
             </div>
           </div>
@@ -236,7 +250,7 @@
         <!-- Conversations List Table-->
         <div class="card card-shadow" style="margin-top:2em;">
           <div class="card-header">
-            <h3>Conversations List</h3>
+            <h3 id='conversations_list'>Conversations List</h3>
           </div>
           <div class="table-wrapper-scroll-y my-custom-scrollbar-table">
             <table class="table table-bordered table-striped mb-0">
@@ -267,31 +281,9 @@
         </div>
         <!-- End of Conversations List Table-->
 
-        <!-- Social Chart -->
-        <div class="container-fluid">
-          <!-- Top 10 Accounts -->
-          <div class="row">
-            <div class="col-lg-6" style="margin-top:2em;">
-              <div class="card card-shadow" style="margin-top:2em;">
-                <div class="card-header">
-                  <h2>Top 10 Accounts</h2>
-                </div>
-                <canvas class="my-4" id="myChartTop10Account" width="600" height="400"></canvas>
-              </div>
-            </div>
-            
-            <!-- Timeseries -->
-            <div class="col-lg-6" style="margin-top:2em;">
-              <div class="card card-shadow" style="margin-top:2em;">
-                <div class="card-header">
-                  <h2>Linechart</h2>
-                </div>
-                <canvas class="my-4" id="myChartbottom" width="900" height="380"></canvas>
-              </div>
-            </div>
-          </div>
+        <div>
+
         </div>
-        <!-- End of SocialChart -->
 
         {% block page_content %}{% endblock %}
       </div>

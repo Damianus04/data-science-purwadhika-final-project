@@ -123,13 +123,13 @@ def stem(text):
 
 def text_preprocessing(text):
     step1 = to_lower(text)
-    step2 = remove_numbers(text)
-    step3 = remove_punct(text)
-    step4 = remove_white_space(text)
-    step5 = slang_converter(text)
-    step6 = emoji_converter(text)
-    step7 = remove_stopwords(text)
-    step8 = stem(text)
+    step2 = remove_numbers(step1)
+    step3 = remove_punct(step2)
+    step4 = remove_white_space(step3)
+    step5 = slang_converter(step4)
+    step6 = emoji_converter(step5)
+    step7 = remove_stopwords(step6)
+    step8 = stem(step7)
 
     return step8
 
@@ -221,7 +221,7 @@ def get_tweets(keyword='indonesia', location="-0.789275,113.921326,5000km", lang
 
 
 ######## PREDICT TWITTER TEXT ########
-def predict_sentiment(model, text_list, colname='tweet_text'):
+def predict_sentiment(model, text_list, colname='tweet_text_preprocessed'):
     y_pred_desc_list = []
     y_pred = model.predict(text_list[colname])
     for i, t in enumerate(y_pred):

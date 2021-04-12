@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- MAIN BODY -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">
+            <span data-feather="home"></span>
+            Dashboard <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="file"></span>
+            Orders
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="shopping-cart"></span>
+            Products
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="users"></span>
+            Customers
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="bar-chart-2"></span>
+            Reports
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="layers"></span>
+            Integrations
+            </a>
+        </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+        <span>Saved reports</span>
+        <a class="d-flex align-items-center text-muted" href="#">
+            <span data-feather="plus-circle"></span>
+        </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            Current month
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            Last quarter
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            Social engagement
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+            <span data-feather="file-text"></span>
+            Year-end sale
+            </a>
+        </li>
+        </ul>
+    </div>
+    </nav>
+    <!-- End of Sidebar -->
+
+    <!-- Main Dashboard -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <!-- Header -->
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+          <h1 class="h1">Social Dashboard - Bad Sentiment</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Action
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Bad Sentiment</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats">
+        <!-- Social Stats -->
+        <div class="container-fluid">
+  
+          <div class="row">
+            <!-- column 1 - Conversations-->
+            <div class="col-lg-5" style="margin-top:2em;">
+              <div class="card card-shadow">
+                <div class="card-header">
+                  <h3>Conversations</h3>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                  <table class="table table-bordered table-striped mb-0">
+                    <tbody>
+                      {% for i in range(0, tweet_data|length) %}
+                      <tr>
+                        <th scope="row">{{ i+1 }}</th>
+                        <td>
+                          <div class="card bg-light mb-3">
+                            <div class="card-header">{{ tweet_data.created_at[i] }}</div>
+                            <div class="card-body">
+                              <h5 class="card-title">{{ tweet_data.user_name[i] }}</h5>
+                              <p class="card-text">{{ tweet_data.tweet_text[i] }}</p>
+                              <br/>
+                              <a class="font-italic" href="{{ tweet_data.profile_url[i] }}">{{ tweet_data.profile_url[i] }}</a>
+                              <div>
+                                {% if tweet_data.sentiment[i] == 'good' %}
+                                  <button type="button" class="btn btn-success">Good</button>
+                                {% elif tweet_data.sentiment[i] == 'bad' %}
+                                  <button type="button" class="btn btn-danger">Bad</button>
+                                {% elif tweet_data.sentiment[i] == 'neutral' %}
+                                  <button type="button" class="btn btn-info">Neutral</button>
+                                {% else %}
+                                  <button type="button" class="btn btn-secondary">sentiment not detected</button>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+  
+            <!-- column 2 - Analytics -->
+            <div class="col-lg-7">
+              <div class="row">
+  
+                <!-- stats -->
+                <div class="col-lg-12">
+                  <div class="row">
+                    <!-- column 2.1 - current keyword-->
+                    <div class="col" style="margin-top:2em;">
+                      <div class="card bg-light mb-3 card-shadow" style="max-width: 18rem;">
+                        <div class="card-header text-center">Current Keyword</div>
+                        <div class="card-body">
+                          <h5 class="card-title text-center" style="font-size: 15px;">{{ text_query }}</h5>
+                          <p class="card-text text-center font-italic">keyword that is being searched now</p>
+                          <p></p>
+                        </div>
+                      </div>
+                    </div>
+    
+                    <!-- column 2.2 - total conversations-->
+                    <div class="col" style="margin-top:2em;">
+                      <div class="card bg-light mb-3 card-shadow" style="max-width: 18rem;">
+                        <div class="card-header text-center">Total Conversations</div>
+                        <div class="card-body">
+                          <h4 class="card-title text-center" style="font-size: 50px;">{{ tweet_data|length }}</h4>
+                          <p class="card-text text-center font-italic">total mentions on social media in the last 7 days</p>
+                        </div>
+                      </div>
+                    </div>
+    
+                    <!-- column 2.3 - average mentions-->
+                    <div class="col" style="margin-top:2em;">
+                      <div class="card bg-light mb-3 card-shadow" style="max-width: 18rem;">
+                        <div class="card-header text-center">Average Mentions</div>
+                        <div class="card-body">
+                          <h5 class="card-title text-center" style="font-size: 50px;">{{ average_mentions }}</h5>
+                          <p class="card-text text-center font-italic">average mentions per day</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- chart -->
+                <div class="col-lg-12">
+                  <div class="card card-shadow" style="margin-top:2em;">
+                    <div class="card-header">
+                      <h2>Conversations Trend</h2>
+                    </div>
+                    <canvas class="my-4" id="myChartConversations7Days" width="900" height="380"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <!-- End of Social Stats -->
+  
+  
+        <!-- Social Chart -->
+        <div class="container-fluid">
+          <!-- Social Sentiment -->
+          <div class="row">
+            <div class="col-lg-5" style="margin-top:2em;">
+              <div class="card card-shadow" style="margin-top:2em;">
+                <div class="card-header">
+                  <h2>Social Sentiment</h2>
+                </div>
+                <canvas class="my-4" id="myChartSentiment" width="600" height="400"></canvas>
+              </div>
+            </div>
+            
+            <!-- Word Cloud -->
+            <div class="col-lg-7" style="margin-top:2em;">
+              <div class="card card-shadow" style="margin-top:2em;">
+                <div class="card-header">
+                  <h2>Word Cloud</h2>
+                </div>
+                <canvas class="my-4" id="myChartWordCloud" width="900" height="380"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of SocialChart -->
+
+        <!-- Social Chart -->
+        <div class="container-fluid">
+          <!-- Top-10 Accounts -->
+          <div class="row">
+            <div class="col-lg-6" style="margin-top:2em;">
+              <div class="card card-shadow" style="margin-top:2em;">
+                <div class="card-header">
+                  <h2>Top Accounts</h2>
+                </div>
+                <canvas class="my-4" id="myChartTop10Account" width="600" height="400"></canvas>
+              </div>
+            </div>
+            
+            <!-- Top-10 Locations -->
+            <div class="col-lg-6" style="margin-top:2em;">
+              <div class="card card-shadow" style="margin-top:2em;">
+                <div class="card-header">
+                  <h2>Top Locations</h2>
+                </div>
+                <canvas class="my-4" id="myChartTop10Location" width="900" height="380"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of SocialChart -->
+
+        <!-- Conversations List Table-->
+        <div class="card card-shadow" style="margin-top:2em;">
+          <div class="card-header">
+            <h3>Conversations List</h3>
+          </div>
+          <div class="table-wrapper-scroll-y my-custom-scrollbar-table">
+            <table class="table table-bordered table-striped mb-0">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">User Name</th>
+                  <th scope="col">Profile URL</th>
+                  <th scope="col">Tweet</th>
+                  <th scope="col">Sentiment</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in range(0, tweet_data|length) %}
+                <tr>
+                  <th scope="row">{{ i+1 }}</th>
+                  <td>{{ tweet_data.created_at[i] }}</td>
+                  <td>{{ tweet_data.user_name[i] }}</td>
+                  <td>{{ tweet_data.profile_url[i] }}</td>
+                  <td>{{ tweet_data.tweet_text[i] }}</td>
+                  <td>{{ tweet_data.sentiment[i] }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- End of Conversations List Table-->
+
+        <div>
+
+        </div>
+
+        {% block page_content %}{% endblock %}
+      </div>
+      <!-- End of Stats -->
+    </main>
+    <!-- End of Main Dashboard -->
+  </div>
+</div>
+<!-- END OF MAIN BODY -->
+{% endblock %}
